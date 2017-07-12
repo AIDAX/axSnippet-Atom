@@ -1,2 +1,1 @@
-# axSnippet-Atom
-Snippet to use AIDAX in the Atom editor
+# AIDAX snippets for ATOM Editor
