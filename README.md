@@ -1,2 +1,3 @@
-# axSnippet-Atom
-Snippet to use AIDAX in the Atom editor
+# AIDAX snippets for ATOM Editor
+
+Snippet to automate AIDAX client-side integration using Atom editor
