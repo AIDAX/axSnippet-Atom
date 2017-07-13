@@ -1,31 +1,69 @@
 # AIDAX snippets for ATOM Editor #
-
 '.source.js':
   'Aidax Event':
     'prefix': 'axevent'
-    'body': 'ax.event({name: $1/*Nome da Captura*/, properties:{$2/* PROPRIEDADES DA CAPTURA*/ }});'
+    'body': """ax.event({
+  id: "$18e6a8ee2-13ea-400d-8b25-882177efa026", // pass this parameter if you have the event id to update it
+  name: "$2EVENT NAME", // obligatory
+  properties: {
+//    $3property1: "foo",
+//    $4property2: "bar"
+  }$5, // custom properties
+  // callback is optinal
+  callback: function(id) {
+    $6// this returns the event ID so you can update it later.
+  }
+});"""
 
   'Aidax User':
     'prefix': 'axuser'
-    'body': 'ax.user({id:$1 /*VALOR DO CAMPO*/, properties:{ $2/* PROPRIEDADES DA CAPTURA*/}});'
+    'body': """ax.user({
+  id: "$1USER ID",
+  properties: {
+  $2//  property1: "value",
+  $3//  property2: "value"
+  },
+  migrate: true //optional parameter to migrate old user data in this session to the new user. Default is true
+});"""
 
   'Aidax Session Properties':
     'prefix': 'axsession'
-    'body': 'ax.session_properties({$1 /* PROPRIEDADES DA CAPTURA*/ });'
+    'body': """ax.session_properties({
+$1//  property1: "value",
+//  property2: "value"
+});"""
 
   'Aidax Increment':
     'prefix': 'axincrement'
-    'body': 'ax.increment(/*TYPE*/, /*PROPERTY*/, /*VALUE*/, function(data){ });$1'
+    'body': """ax.increment(TYPE,PROPERTY, VALUE, function(data) {
+  // returns a object containing a value property with the current property value
+});"""
 
   'Aidax Query':
     'prefix': 'axquery'
-    'body': 'ax.query({type: $1"type", $2/* user, session_properties, profile or event*/ value: "id", $3/*required for profile and event*/ callback: function(data) {$4 }});'
+    'body': """ax.query({
+  type: "$1type", // user, session_properties, profile or event
+  value: "$2id", //required for profile and event
+  callback: function(data) {
+     $3// ...
+  }
+});"""
+
+  'Aidax Banner':
+    'prefix': 'axonce'
+    'body': """// for impression
+    ax.once("$1banner:BANNER TITLE", function(data, element) {
+      $2// data returns { cost: NUMBER, cost_type: TYPE, clicked: true/false }, element is the banner HTML container
+    });"""
+
 
   'Aidax Instalation':
     'prefix': 'axinstall'
     'body': """var AIDAX_CLIENT_KEY="$1YOUR_KEY",
 cookie_enabled=function(){return document.cookie="tcax",-1!==document.cookie.indexOf("tcax")};window.ax=window.ax||function(){return window.ax.factory("event").apply(this,arguments)},window.ax.methods=["on","once","user","query","session_properties","event","delete_tags","increment","whois","ready","toggle_debug"],window.ax._container=[],window.ax.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);return window.ax._container.unshift({method:e,args:t}),window.ax}};var cookie={set:function(e,t,r,i,n){var o=new Date,a="",c=typeof t,s="",d="";i=i||"/",r&&(o.setTime(o.getTime()+24*r*60*60*1e3),a="; expires="+o.toUTCString()),s="object"===c&&"undefined"!==c?encodeURIComponent(JSON.stringify({v:t})):encodeURIComponent(t),n&&(d="; secure"),document.cookie=e+"="+s+a+"; path="+i+d},get:function(e){for(var t=e+"=",r=document.cookie.split(";"),i="",n="",o={},a=0;a<r.length;a++){for(var c=r[a];" "==c.charAt(0);)c=c.substring(1,c.length);if(0===c.indexOf(t)){if(i=decodeURIComponent(c.substring(t.length,c.length)),n=i.substring(0,1),"{"==n)try{if(o=JSON.parse(i),"v"in o)return o.v}catch(s){return i}if("undefined"==i)return;return i}}return null},remove:function(e){this.set(e,"",-1)}};window.ax.is_unique=function(){return!cookie.get("aidax_unique")},window.ax.clear_ab=function(e){if(e){if("string"==typeof e&&""!==e){var t=cookie.get("aidax_ab");if(t){var r=JSON.parse(t);delete r[e],cookie.set("aidax_ab",JSON.stringify(r),3,"/")}}}else cookie.remove("aidax_ab")},window.ax.ab=function(e,t){if("string"==typeof e&&""===e&&"object"==typeof t&&Array.isArray(t)){var r,i=cookie.get("aidax_ab"),n={},o=function(e,t){return Math.floor(Math.random()*(t-e+1))+e},a=function(){var i,a,c=[],s=0,d=0;if(Array.isArray(t))r=t[Math.floor(Math.random()*t.length)];else{for(var u in t)t.hasOwnProperty(u)&&(c.push([u,[0===d?d:d+1,r[u]+d]]),d=r[u],s+=+r[u]);for(a=o(0,s),c.sort(function(e,t){return e[1]-t[1]}),i=0;i<c.length;i++)if(a>=c[i][1][0]&&a<=c[i][1][1]){r=c[i][0];break}}n[e]=r};if(i){if(n=JSON.parse(i),n[e])return n[e];a()}else a();return cookie.set("aidax_ab",JSON.stringify(n),30,"/"),r}throw"[AIDAX] Missing ab parameters."};for(var i=0;i<window.ax.methods.length;i++){var method=window.ax.methods[i];window.ax[method]=window.ax.factory(method)}var script=document.createElement("script");script.type="text/javascript",script.async=!0,script.src="//api.aidax.com.br/aidax.js";var firstScript=document.getElementsByTagName("script")[0];firstScript.parentNode.insertBefore(script,firstScript);"""
 
+
   'Aidax Who Is':
     'prefix': 'axwhois'
     'body': 'ax.whois(function(identity) {$1/* returns the current user id*/});'
+
