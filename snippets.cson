@@ -28,7 +28,7 @@
 
   'Aidax Session Properties':
     'prefix': 'axsession'
-    'body': """ax.session_properties({
+    'body': """ax.session({
 $1//  property1: "value",
 //  property2: "value"
 });"""
