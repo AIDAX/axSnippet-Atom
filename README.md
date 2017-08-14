@@ -2,7 +2,7 @@
 
 Snippet to automate AIDAX client-side integration using Atom editor
 
-![alt text](https://github.com/Fabio-Bittencourt/axSnippet-Atom/blob/master/images/Aidax_snippet_for_atom.gif)
+![alt text](https://github.com/Fabio-Bittencourt/axSnippet-Atom/blob/master/images/ax_snippet_for_atom.gif)
 
 # How To
 
